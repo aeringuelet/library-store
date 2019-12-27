@@ -8,6 +8,11 @@ import NewSub from "./components/subscriptors/NewSub";
 import EditSub from "./components/subscriptors/EditSub";
 import ShowSub from "./components/subscriptors/ShowSub";
 import Navbar from "./components/layout/Navbar";
+import Books from "./components/books/Books";
+import ShowBook from "./components/books/ShowBook";
+import EditBook from "./components/books/EditBook";
+import BookLoan from "./components/books/BookLoan";
+import NewBook from "./components/books/NewBook";
 
 function App() {
 	return (
@@ -16,31 +21,31 @@ function App() {
 				<Navbar />
 				<div className="container">
 					<Switch>
-						{/* <Route
+						<Route
 							exact
 							path="/"
-							component={UserIsAuthenticated(Libros)}
+							component={Books}
 						/>
 						<Route
 							exact
-							path="/libros/mostrar/:id"
-							component={UserIsAuthenticated(MostrarLibro)}
+							path="/books/show/:id"
+							component={ShowBook}
 						/>
 						<Route
 							exact
-							path="/libros/nuevo"
-							component={UserIsAuthenticated(NuevoLibro)}
+							path="/books/new"
+							component={NewBook}
 						/>
 						<Route
 							exact
-							path="/libros/editar/:id"
-							component={UserIsAuthenticated(EditarLibro)}
+							path="/books/edit/:id"
+							component={EditBook}
 						/>
 						<Route
 							exact
-							path="/libros/prestamo/:id"
-							component={UserIsAuthenticated(PrestamoLibro)}
-						/> */}
+							path="/books/loan/:id"
+							component={BookLoan}
+						/>
 
 						<Route
 							exact
