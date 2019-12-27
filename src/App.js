@@ -16,6 +16,31 @@ function App() {
 				<Navbar />
 				<div className="container">
 					<Switch>
+						{/* <Route
+							exact
+							path="/"
+							component={UserIsAuthenticated(Libros)}
+						/>
+						<Route
+							exact
+							path="/libros/mostrar/:id"
+							component={UserIsAuthenticated(MostrarLibro)}
+						/>
+						<Route
+							exact
+							path="/libros/nuevo"
+							component={UserIsAuthenticated(NuevoLibro)}
+						/>
+						<Route
+							exact
+							path="/libros/editar/:id"
+							component={UserIsAuthenticated(EditarLibro)}
+						/>
+						<Route
+							exact
+							path="/libros/prestamo/:id"
+							component={UserIsAuthenticated(PrestamoLibro)}
+						/> */}
 
 						<Route
 							exact
@@ -38,6 +63,11 @@ function App() {
 							component={EditSub}
 						/>
 
+						{/* <Route
+							exact
+							path="/login"
+							// component={UserIsNotAuthenticated(Login)}
+						/> */}
 					</Switch>
 				</div>
 			</Router>

@@ -75,13 +75,6 @@ const Subscriptors = ({ subscriptors, firestore, history }) => {
                                     <i className='fas fa-tracsh-alt'></i>
                                     {''} Delete
                                 </button>
-
-                                <Link 
-                                    to={`subscriptors/edit/${sub.id}`}
-                                    className='btn btn-block'
-                                >
-                                    Edit
-                                </Link>
                             </td>
                         </tr>
                     ))}
