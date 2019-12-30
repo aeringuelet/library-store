@@ -13,6 +13,9 @@ import ShowBook from "./components/books/ShowBook";
 import EditBook from "./components/books/EditBook";
 import BookLoan from "./components/books/BookLoan";
 import NewBook from "./components/books/NewBook";
+import Login from "./components/auth/Login";
+
+import { UserIsAuthenticated, UserIsNotAuthenticated } from './helpers/auth';
 
 function App() {
 	return (
@@ -24,55 +27,55 @@ function App() {
 						<Route
 							exact
 							path="/"
-							component={Books}
+							component={UserIsAuthenticated(Books)}
 						/>
 						<Route
 							exact
 							path="/books/show/:id"
-							component={ShowBook}
+							component={UserIsAuthenticated(ShowBook)}
 						/>
 						<Route
 							exact
 							path="/books/new"
-							component={NewBook}
+							component={UserIsAuthenticated(NewBook)}
 						/>
 						<Route
 							exact
 							path="/books/edit/:id"
-							component={EditBook}
+							component={UserIsAuthenticated(EditBook)}
 						/>
 						<Route
 							exact
 							path="/books/loan/:id"
-							component={BookLoan}
+							component={UserIsAuthenticated(BookLoan)}
 						/>
 
 						<Route
 							exact
 							path="/subscriptors"
-							component={Subscriptors}
+							component={UserIsAuthenticated(Subscriptors)}
 						/>
 						<Route
 							exact
 							path="/subscriptors/new"
-							component={NewSub}
+							component={UserIsAuthenticated(NewSub)}
 						/>
 						<Route
 							exact
 							path="/subscriptors/show/:id"
-							component={ShowSub}
+							component={UserIsAuthenticated(ShowSub)}
 						/>
 						<Route
 							exact
 							path="/subscriptors/edit/:id"
-							component={EditSub}
+							component={UserIsAuthenticated(EditSub)}
 						/>
 
-						{/* <Route
+						<Route
 							exact
 							path="/login"
-							// component={UserIsNotAuthenticated(Login)}
-						/> */}
+							component={UserIsNotAuthenticated(Login)}
+						/>
 					</Switch>
 				</div>
 			</Router>

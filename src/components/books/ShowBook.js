@@ -12,6 +12,22 @@ class ShowBook extends Component {
 
     }
 
+    returnBook = subCode => {
+        const book = { ...this.props.book };
+        const { firestore } = this.props;
+
+        const lent = book.lent.filter(loan => (loan.code !== subCode));
+        book.lent = lent;
+
+        firestore
+            .update(
+                {
+                    collection: 'books',
+                    doc: book.id
+                }, book)
+            .then();
+    }
+
     render() { 
         const { book } = this.props;
 
@@ -71,6 +87,43 @@ class ShowBook extends Component {
                     </p>
 
                     {btnLoan}
+
+                    <h3 className="my-2">
+                        Subs that lent this book
+                    </h3>
+                    {book.lent.map(loan => (
+                        <div key={loan.id} className="card my-2">
+                            <h4 className="card-header">
+                                { loan.name }
+                            </h4>
+
+                            <div className="card-body">
+                                <p>
+                                    <span className="font-weight-bold">
+                                        Code:
+                                    </span>
+                                        {''} {loan.code}
+                                </p>
+
+                                <p>
+                                    <span className="font-weight-bold">
+                                        Loan date:
+                                    </span>
+                                        {''} {loan.loanDate}
+                                </p>
+                            </div>
+
+                            <div className="card-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-success font-weight-bold"
+                                    onClick={() => this.returnBook(loan.code)}
+                                >
+                                    Return book
+                                </button>
+                            </div>
+                        </div>
+                    ))}
 
                 </div>
             </div>
