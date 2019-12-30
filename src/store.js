@@ -6,6 +6,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import findSubReducer from './reducers/findSubReducer';
+
 const firebaseConfig = {
     apiKey: "AIzaSyAr0f3szWs-vTvtH8emcqBjV2I_yRWqc3Y",
     authDomain: "library-store-51f17.firebaseapp.com",
@@ -31,7 +33,8 @@ const createStoreWithFirebase = compose(
 
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
-    firestore: firestoreReducer
+    firestore: firestoreReducer,
+    sub: findSubReducer
 })
 
 const initialState = {};

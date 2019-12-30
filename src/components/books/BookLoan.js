@@ -6,34 +6,37 @@ import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import SubDetail from '../subscriptors/SubDetail';
+import { findSub } from '../../actions/findSubActions';
 
 class BookLoan extends Component {
     state = {  
         subCode: '',
-        result: {},
         hasResults: false
     }
 
     render() {
-        const { book } = this.props;
+        const { book, findSub } = this.props;
+        const { hasResults } = this.state;
+        const result = this.props.sub;
 
         if(!book) return <Spinner />;
 
-        const { hasResults, result } = this.state;
-
         const getLoan = () => {
-            const sub = this.state.result;
-            const { firestore, history } = this.props;
-            const book = { ...this.props.book };
-
+            const { firestore, history, sub } = this.props;
+            
             sub.loanDate = new Date().toLocaleDateString();
-            book.lent.push(sub);
+            
+            const updatedBook = { ...this.props.book };
+            const newLoans = [...this.props.book.lent, sub];
+
+            delete updatedBook.lent;
+            updatedBook.lent = newLoans;
 
             firestore
                 .update({
                     collection: 'books',
-                    doc: book.id
-                }, book)
+                    doc: updatedBook.id
+                }, updatedBook)
                 .then(response => {
                     history.push('/');
                 })
@@ -60,15 +63,16 @@ class BookLoan extends Component {
 
             result.then(response => {
                 if(response.empty) {
+                    findSub({});
                     this.setState({
-                        hasResults: false,
-                        result: {}
+                        hasResults: false
                     })
                 } else { 
                     const data = response.docs[0];
+                    
+                    findSub(data.data());
                     this.setState({
-                        hasResults: true,
-                        result: data.data()
+                        hasResults: true
                     })
                 }
             });
@@ -137,7 +141,8 @@ export default compose(
         storeAs: 'book',
         doc: props.match.params.id
     }]),
-    connect(({ firestore: { ordered } }, props) => ({
-        book: ordered.book && ordered.book[0]
-    }))
+    connect(({ firestore: { ordered },  sub }, props) => ({
+        book: ordered.book && ordered.book[0],
+        sub
+    }), { findSub })
 )(BookLoan);
